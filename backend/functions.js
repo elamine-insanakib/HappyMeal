@@ -3,8 +3,8 @@ const inputIngredient = document.getElementById('ingredient');
 inputIngredient.addEventListener('input', () => {
     // Récupération de la valeur saisie dans le champ de texte
     const nomIngredientRecherche = inputIngredient.value;
-    // Appel de la fonction filtreRecettes avec le nouvel ingrédient recherché
-    filtreRecettes(nomIngredientRecherche);
+    // Appel de la fonction filtreRecette avec le nouvel ingrédient recherché
+    filtreRecette(nomIngredientRecherche);
 });
 
 async function recupererDonneesJSON() {
@@ -48,7 +48,7 @@ async function afficherRecette() {
 }
 
 
-async function filtreRecettes(nomIngredientRecherche) {
+async function filtreRecette(nomIngredientRecherche) {
     const recettes = await recupererDonneesJSON();
 
     recettes.forEach((recette, index) => {
