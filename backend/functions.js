@@ -40,8 +40,17 @@ async function afficherRecette() {
         tempsPreparation.textContent = "Temps de préparation : " + recette.temps_preparation;
         recetteDiv.appendChild(tempsPreparation);
 
+        //Ajout de l'image etoile vide
+        imageEtoile = document.createElement("img")
+        imageEtoile.src = "../assets/image/star.empty.png";
+        imageEtoile.width = 20;
+        imageEtoile.height = 20;
+        recetteDiv.appendChild(imageEtoile)
         recetteDiv.setAttribute("id", index);
 
+        imageEtoile.addEventListener("click", function() {
+            ajouterFavoris(this); // Passer l'élément img en tant que paramètre
+        });
         // Ajout de la div de recette au conteneur principal (par exemple, une div avec l'ID "recettesContainer")
         document.getElementById("recettesContainer").appendChild(recetteDiv);
     });
@@ -62,6 +71,24 @@ async function filtreRecette(nomIngredientRecherche) {
         document.getElementById(index).style.display = displayStyle;
     });
 }
+
+function ajouterFavoris(imageEtoile) {
+    if (imageEtoile.src.includes("star.fill.png")) {
+        imageEtoile.src = "../assets/image/star.empty.png";
+        imageEtoile.classList.remove("favoris");
+    } else {
+        imageEtoile.src = "../assets/image/star.fill.png";
+        imageEtoile.classList.add("favoris");
+    }
+}
+
+// Fonction pour récupérer les recettes favorites
+function getFavoris() {
+    return JSON.parse(localStorage.getItem("favoris")) || [];
+}
+
+const favoris = getFavoris();
+
 
 
 
