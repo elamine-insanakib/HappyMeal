@@ -2,6 +2,34 @@ const inputIngredient = document.getElementById('ingredient');
 let favoris = [];
 chargerFavoris();
 
+async function init() {
+    const recetteAffichees = await genererNombreAleatoire(); // Attendre que la promesse soit résolue
+    afficherRecette(recetteAffichees); // Passer les nombres aléatoires à la fonction afficherRecette
+}
+
+
+init();
+
+async function genererNombreAleatoire() {
+    const nombresAleatoires = [];
+    const recettes = await recupererDonneesJSON();
+    
+    // Fonction pour vérifier si un nombre est déjà dans le tableau
+    function estDejaPresent(nombre) {
+        return nombresAleatoires.includes(nombre);
+    }
+
+    // Générer 9 nombres uniques aléatoires
+    while (nombresAleatoires.length < 9) {
+        let number = Math.floor(Math.random() * recettes.length);
+        if (!estDejaPresent(number)) {
+            nombresAleatoires.push(number);
+        }
+    }
+
+    return nombresAleatoires;
+}
+
 inputIngredient.addEventListener('input', () => {
     // Récupération de la valeur saisie dans le champ de texte
     const nomIngredientRecherche = inputIngredient.value;
@@ -21,45 +49,35 @@ async function recupererDonneesJSON() {
 }
 
 
-async function afficherRecette() {
+async function afficherRecette(recetteAffichees) {
+
     const recettes = await recupererDonneesJSON();
 
     recettes.forEach((recette, index) => {
-        // Création d'une nouvelle div pour chaque recette
-        const recetteDiv = document.createElement("li");
-        recetteDiv.classList.add("flex", "flex-row", "items-center", "space-x-5")
 
-        // Ajout du nom de la recette à la div
-        const nomRecette = document.createElement("h2");
-        nomRecette.textContent = recette.nom;
-        recetteDiv.appendChild(nomRecette);
-        nomRecette.classList.add("font-h1", "font-black", "text-4xl", "md:max-2xl:text-6xl" )
+if (recetteAffichees.includes(index)) {
 
-        /*
-        // Ajout de la catégorie de la recette à la div
-        const categorieRecette = document.createElement("p");
-        categorieRecette.textContent = "Catégorie : " + recette.categorie;
-        recetteDiv.appendChild(categorieRecette);
+            const recetteDiv = document.createElement("li");
+            recetteDiv.classList.add("flex", "flex-row", "items-center", "space-x-5");
 
-        // Ajout du temps de préparation de la recette à la div
-        const tempsPreparation = document.createElement("p");
-        tempsPreparation.textContent = "Temps de préparation : " + recette.temps_preparation;
-        recetteDiv.appendChild(tempsPreparation);
-        */
+            const nomRecette = document.createElement("h2");
+            nomRecette.textContent = recette.nom;
+            recetteDiv.appendChild(nomRecette);
+            nomRecette.classList.add("font-h1", "font-black", "text-4xl", "md:max-2xl:text-6xl");
 
-        //Ajout de l'image etoile vide
-        imageEtoile = document.createElement("img")
-        imageEtoile.src = favoris.includes(index.toString()) ? "../assets/image/star.fill.png" : "../assets/image/star.empty.png";        
-        imageEtoile.width = 30;
-        imageEtoile.height = 30;
-        recetteDiv.appendChild(imageEtoile)
-        recetteDiv.setAttribute("id", index);
+            const imageEtoile = document.createElement("img");
+            imageEtoile.src = favoris.includes(index.toString()) ? "../assets/image/star.fill.png" : "../assets/image/star.empty.png";        
+            imageEtoile.width = 30;
+            imageEtoile.height = 30;
 
-        imageEtoile.addEventListener("click", function() {
-            ajouterFavoris(this); // Passer l'élément img en tant que paramètre
-        });
-        // Ajout de la div de recette au conteneur principal (par exemple, une div avec l'ID "recettesContainer")
-        document.getElementById("recettesContainerLu").appendChild(recetteDiv);
+            recetteDiv.appendChild(imageEtoile);
+            recetteDiv.setAttribute("id", index);
+            imageEtoile.addEventListener("click", function() 
+            {
+                ajouterFavoris(this);
+            });
+            document.getElementById("recettesContainerLu").appendChild(recetteDiv);
+        }
     });
 }
 
@@ -126,6 +144,6 @@ function ajouterFavoris(imageEtoile) {
 
 
 
-
+genererNombreAleatoire()
 
 afficherRecette()
