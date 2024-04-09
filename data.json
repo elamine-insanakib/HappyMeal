@@ -236,11 +236,23 @@
          "nom":"Salade de fruits frais",
          "categorie":"Dessert",
          "temps_preparation":"20 minutes",
-         "ingredients":[
-            "Fruits variés (fraises, kiwis, oranges, raisins, etc.), coupés en morceaux",
-            "Jus d'orange ou de citron",
-            "Miel ou sirop d'érable (facultatif)",
-            "Feuilles de menthe fraîche pour garnir"
+         "ingredients":[    
+         {
+            "nom": "Fruits variés",
+            "quantite": "5"
+          },
+          {
+            "nom": "Jus d'orange ou de citron",
+            "quantite": "1 tasse"
+          },
+          {
+            "nom": "Miel ou sirop d'érable (facultatif)",
+            "quantite": "au goût"
+          },
+          {
+            "nom": "Feuilles de menthe fraîche pour garnir",
+            "quantite": "q.s."
+          }
          ],
          "etapes":[
             "Coupez tous les fruits en morceaux de taille similaire et placez-les dans un grand bol.",

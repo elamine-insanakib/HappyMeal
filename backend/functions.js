@@ -26,13 +26,16 @@ async function afficherRecette() {
 
     recettes.forEach((recette, index) => {
         // Création d'une nouvelle div pour chaque recette
-        const recetteDiv = document.createElement("div");
+        const recetteDiv = document.createElement("li");
+        recetteDiv.classList.add("flex", "flex-row", "items-center", "space-x-5")
 
         // Ajout du nom de la recette à la div
         const nomRecette = document.createElement("h2");
         nomRecette.textContent = recette.nom;
         recetteDiv.appendChild(nomRecette);
+        nomRecette.classList.add("font-h1", "font-black", "text-4xl", "md:max-2xl:text-6xl" )
 
+        /*
         // Ajout de la catégorie de la recette à la div
         const categorieRecette = document.createElement("p");
         categorieRecette.textContent = "Catégorie : " + recette.categorie;
@@ -42,26 +45,21 @@ async function afficherRecette() {
         const tempsPreparation = document.createElement("p");
         tempsPreparation.textContent = "Temps de préparation : " + recette.temps_preparation;
         recetteDiv.appendChild(tempsPreparation);
+        */
 
         //Ajout de l'image etoile vide
         imageEtoile = document.createElement("img")
-        imageEtoile.src = favoris.includes(index.toString()) ? "../assets/image/star.fill.png" : "../assets/image/star.empty.png";        imageEtoile.width = 20;
-        imageEtoile.height = 20;
+        imageEtoile.src = favoris.includes(index.toString()) ? "../assets/image/star.fill.png" : "../assets/image/star.empty.png";        
+        imageEtoile.width = 30;
+        imageEtoile.height = 30;
         recetteDiv.appendChild(imageEtoile)
         recetteDiv.setAttribute("id", index);
-
-        // console.log(favoris)
-        // // Vérifier si la recette est dans les favoris
-        // if (favoris.includes(index.toString()))  {
-        //     console.log('trouvé');
-        //     imageEtoile.src = "../assets/image/star.fill.png"
-        // }
 
         imageEtoile.addEventListener("click", function() {
             ajouterFavoris(this); // Passer l'élément img en tant que paramètre
         });
         // Ajout de la div de recette au conteneur principal (par exemple, une div avec l'ID "recettesContainer")
-        document.getElementById("recettesContainer").appendChild(recetteDiv);
+        document.getElementById("recettesContainerLu").appendChild(recetteDiv);
     });
 }
 

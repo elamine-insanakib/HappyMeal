@@ -5,12 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <input type="text" value="" id="ingredient">
-    <div id="recettesContainer">
+    <header class="bg-white h-16 md:max-2xl:h-20 w-full flex flex-row justify-between items-center sticky top-0">
+        <section class="w-16 h-16 flex justify-center items-center md:max-2xl:hidden">
+          <img src="../assets/image/recipe.svg" alt="recipe" class="w-7 h-7">
+        </section>
+        <section class="w-16 h-16 flex justify-center items-center md:max-2xl:hidden">
+          <img src="../assets/image/cart.svg" alt="recipe" class="w-7 h-7">
+        </section>
+        <section class=" hidden md:max-2xl:flex flex-row items-center space-x-8 px-8">
+          <h1 class="font-h1 text-4xl font-black">Recettes</h1>
+          <h1 class="font-h1 text-4xl font-black">Favoris</h1>
+          <h1 class="font-h1 text-4xl font-black">Panier</h1>
+        </section>
+    </header>
+      <main class="space-y-9 md:max-2xl:space-y-20 px-4">
+        <section id="recipe-day" class="px-8 space-y-9 md:max-2xl:space-y-20 mt-9 md:max-2xl: mt-20">
+          <h1 class="font-h1 text-4xl	md:max-2xl:text-6xl text-center md:max-2xl:text-left font-black">La recette du jour :</h1>
+          <div class=" flex flex-row justify-center md:max-2xl:justify-start md:max-2xl:space-x-5 ml-4">
+            <h1 class="font-h1 font-black text-6xl hidden md:max-2xl:block ">
+              &bull; 
+            </h1>
+            <h1 id="recipe" class="font-h1 text-4xl md:max-2xl:text-6xl  text-center md:max-2xl:text-left font-black align-middle	">Lasagnes végétariennes</h1>
+          </div>
+        </section>
 
-    </div>
-    <script src="functions.js"></script>
+        <div id="separator" class="w-5/6 bg-black h-1 mx-auto rounded-tl-lg rounded-br-lg md:max-2xl:hidden"></div>
+
+        <section class="w-60 md:max-2xl:w-3/4 h-6 md:max-2xl:h-14 bg-red-500 rounded-full border-2 border-black rounded mx-auto flex items-center">
+            <input type="text" class="w-52 md:max-2xl:w-11/12 h-full rounded-full font-h1 text-xs md:max-2xl:text-lg placeholder-black pl-2 border border-black" id="ingredient" placeholder="Tapez une recette ou un ingrédient">
+            <img src="../assets/image/search.svg" alt="recipe" class="w-3.5 md:max-2xl:w-11 h-3.5 md:max-2xl:h-11 ml-1.5 md:max-2xl:mx-auto">
+        </section>
+
+        <div id="recettesContainer">
+            <ul class="space-y-5 md:max-2xl:space-y-20 px-12" id="recettesContainerLu">
+                
+            </ul>
+        </div>
+        <script src="functions.js"></script>
 </body>
 </html>
