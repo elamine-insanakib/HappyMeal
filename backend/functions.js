@@ -1,4 +1,5 @@
 const inputIngredient = document.getElementById('ingredient');
+const favoris = [];
 
 inputIngredient.addEventListener('input', () => {
     // Récupération de la valeur saisie dans le champ de texte
@@ -6,6 +7,7 @@ inputIngredient.addEventListener('input', () => {
     // Appel de la fonction filtreRecette avec le nouvel ingrédient recherché
     filtreRecette(nomIngredientRecherche);
 });
+
 
 async function recupererDonneesJSON() {
     try {
@@ -81,13 +83,6 @@ function ajouterFavoris(imageEtoile) {
         imageEtoile.classList.add("favoris");
     }
 }
-
-// Fonction pour récupérer les recettes favorites
-function getFavoris() {
-    return JSON.parse(localStorage.getItem("favoris")) || [];
-}
-
-const favoris = getFavoris();
 
 
 
