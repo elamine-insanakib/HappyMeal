@@ -7,36 +7,7 @@ async function init() {
     afficherRecette(recetteAffichees); // Passer les nombres aléatoires à la fonction afficherRecette
 }
 
-
 init();
-
-async function genererNombreAleatoire() {
-    const nombresAleatoires = [];
-    const recettes = await recupererDonneesJSON();
-    
-    // Fonction pour vérifier si un nombre est déjà dans le tableau
-    function estDejaPresent(nombre) {
-        return nombresAleatoires.includes(nombre);
-    }
-
-    // Générer 9 nombres uniques aléatoires
-    while (nombresAleatoires.length < 9) {
-        let number = Math.floor(Math.random() * recettes.length);
-        if (!estDejaPresent(number)) {
-            nombresAleatoires.push(number);
-        }
-    }
-
-    return nombresAleatoires;
-}
-
-inputIngredient.addEventListener('input', () => {
-    // Récupération de la valeur saisie dans le champ de texte
-    const nomIngredientRecherche = inputIngredient.value;
-    // Appel de la fonction filtreRecette avec le nouvel ingrédient recherché
-    filtreRecette(nomIngredientRecherche);
-});
-
 
 async function recupererDonneesJSON() {
     try {
@@ -47,7 +18,6 @@ async function recupererDonneesJSON() {
         console.error('Erreur lors de la récupération des données JSON :', error);
     }
 }
-
 
 async function afficherRecette(recetteAffichees) {
 
@@ -81,6 +51,68 @@ if (recetteAffichees.includes(index)) {
     });
 }
 
+async function afficherRecetteFavoris(recetteAffichees) {
+
+    const recettes = await recupererDonneesJSON();
+
+    recettes.forEach((recette, index) => {
+        console.log('ok')
+
+//if (favoris.includes(index)) {
+
+            const recetteDiv = document.createElement("li");
+            recetteDiv.classList.add("flex", "flex-row", "items-center", "space-x-5");
+
+            const nomRecette = document.createElement("h2");
+            nomRecette.textContent = recette.nom;
+            recetteDiv.appendChild(nomRecette);
+            nomRecette.classList.add("font-h1", "font-black", "text-4xl", "md:max-2xl:text-6xl");
+
+            const imageEtoile = document.createElement("img");
+            imageEtoile.src = favoris.includes(index.toString()) ? "../assets/image/star.fill.png" : "../assets/image/star.empty.png";        
+            imageEtoile.width = 30;
+            imageEtoile.height = 30;
+
+            recetteDiv.appendChild(imageEtoile);
+            recetteDiv.setAttribute("id", index);
+            imageEtoile.addEventListener("click", function() 
+            {
+                ajouterFavoris(this);
+            });
+            document.getElementById("recettesContainerLuFavoris").appendChild(recetteDiv);
+//        }
+    });
+}
+
+
+async function genererNombreAleatoire() {
+    const nombresAleatoires = [];
+    const recettes = await recupererDonneesJSON();
+    
+    // Fonction pour vérifier si un nombre est déjà dans le tableau
+    function estDejaPresent(nombre) {
+        return nombresAleatoires.includes(nombre);
+    }
+
+    // Générer 9 nombres uniques aléatoires
+    while (nombresAleatoires.length < 9) {
+        let number = Math.floor(Math.random() * recettes.length);
+        if (!estDejaPresent(number)) {
+            nombresAleatoires.push(number);
+        }
+    }
+
+    return nombresAleatoires;
+}
+
+genererNombreAleatoire()
+
+inputIngredient.addEventListener('input', () => {
+    // Récupération de la valeur saisie dans le champ de texte
+    const nomIngredientRecherche = inputIngredient.value;
+    // Appel de la fonction filtreRecette avec le nouvel ingrédient recherché
+    filtreRecette(nomIngredientRecherche);
+});
 
 async function filtreRecette(nomIngredientRecherche) {
     const recettes = await recupererDonneesJSON();
@@ -115,8 +147,6 @@ function ajouterFavoris(imageEtoile) {
     // Récupérer l'élément div parent de l'image étoile, qui contient les informations de la recette
     const recetteDiv = imageEtoile.parentNode;
     const recetteIndex = recetteDiv.id;
-    console.log(recetteDiv)
-    console.log(recetteIndex)
 
     // Vérifier si la recette est déjà dans les favoris
     const indexDansFavoris = favoris.indexOf(recetteIndex);
@@ -126,8 +156,6 @@ function ajouterFavoris(imageEtoile) {
         favoris.push(recetteIndex);
         imageEtoile.src = "../assets/image/star.fill.png"; // changer l'image pour étoile remplie
         imageEtoile.classList.add("favoris"); // ajouter la classe "favoris" à l'image
-        console.log("push")
-        console.log(favoris)
         sauvegarderFavoris()
     } else { // Si la recette est déjà dans les favoris, la retirer
         favoris.splice(indexDansFavoris, 1);
@@ -140,10 +168,3 @@ function ajouterFavoris(imageEtoile) {
     // Appel de la fonction pour sauvegarder les favoris dans le localStorage
     sauvegarderFavoris();
 }
-
-
-
-
-genererNombreAleatoire()
-
-afficherRecette()
