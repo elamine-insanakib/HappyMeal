@@ -6,21 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              'h1': ['Stara', 'sans-serif'],
-              'label': ['Geist', 'mono'],
-            },
-            screens: {
-              '2xl': '4536px',
-            }
-          }
-        }
-      }
-    </script>
 </head>
 <body>
     <header class="bg-white h-16 md:max-2xl:h-20 w-full flex flex-row justify-between items-center sticky top-0">
@@ -36,18 +21,6 @@
           <h1 class="font-h1 text-4xl font-black">Panier</h1>
         </section>
     </header>
-      <main class="space-y-9 md:max-2xl:space-y-20 px-4">
-        <section id="recipe-day" class="px-8 space-y-9 md:max-2xl:space-y-20 mt-9 md:max-2xl: mt-20">
-          <h1 class="font-h1 text-4xl	md:max-2xl:text-6xl text-center md:max-2xl:text-left font-black">La recette du jour :</h1>
-          <div class=" flex flex-row justify-center md:max-2xl:justify-start md:max-2xl:space-x-5 ml-4">
-            <h1 class="font-h1 font-black text-6xl hidden md:max-2xl:block ">
-              &bull; 
-            </h1>
-            <h1 id="recipe" class="font-h1 text-4xl md:max-2xl:text-6xl  text-center md:max-2xl:text-left font-black align-middle	">Lasagnes végétariennes</h1>
-          </div>
-        </section>
-
-        <div id="separator" class="w-5/6 bg-black h-1 mx-auto rounded-tl-lg rounded-br-lg md:max-2xl"></div>
 
         <!-- <section class="w-60 md:max-2xl:w-3/4 h-6 md:max-2xl:h-14 bg-red-500 rounded-full border-2 border-black rounded mx-auto flex items-center">
             <input type="text" class="w-52 md:max-2xl:w-11/12 h-full rounded-full font-h1 text-xs md:max-2xl:text-lg placeholder-black pl-2 border border-black" id="ingredient" placeholder="Tapez une recette ou un ingrédient">
@@ -55,10 +28,10 @@
         </section> -->
 
         <div id="recettesContainer">
-            <ul class="space-y-5 md:max-2xl:space-y-20 px-8 mb-8" id="recettesContainerLu">
+            <ul class="space-y-5 md:max-2xl:space-y-20 px-12" id="recettesContainerLu">
                 
             </ul>
         </div>
-        <script src="fonctions/functionsPagePrincipale.js"></script>
+        <script src="fonctions/functionsPageFavoris.js"></script>
 </body>
 </html>

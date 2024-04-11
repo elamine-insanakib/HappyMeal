@@ -6,7 +6,6 @@
 .caddie {
     width: 50px;
     height: 50px;
-    margin-left: 1367px;
 }
 
 .recette {
@@ -30,6 +29,10 @@ hr {
 
 p {
     font-size: medium;
+    font-weight: bold;
+}
+
+.list {
     font-weight: bold;
 }
 
