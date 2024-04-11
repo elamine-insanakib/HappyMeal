@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'h1': ['Stara', 'sans-serif'],
+              'label': ['Geist', 'mono'],
+            },
+            screens: {
+              '2xl': '4536px',
+            }
+          }
+        }
+      }
+    </script>
 </head>
 <body>
     <header class="bg-white h-16 md:max-2xl:h-20 w-full flex flex-row justify-between items-center sticky top-0">
@@ -21,7 +36,6 @@
           <h1 class="font-h1 text-4xl font-black">Panier</h1>
         </section>
     </header>
-     
 
         <section class="w-60 md:max-2xl:w-3/4 h-6 md:max-2xl:h-14 bg-red-500 rounded-full border-2 border-black rounded mx-auto flex items-center mt-7 mb-7">
             <input type="text" class="w-52 md:max-2xl:w-11/12 h-full rounded-full font-h1 text-xs md:max-2xl:text-lg placeholder-black pl-2 border border-black" id="ingredient" placeholder="Tapez une recette ou un ingrédient">

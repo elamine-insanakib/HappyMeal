@@ -28,19 +28,31 @@ async function afficherRecette(recetteAffichees) {
 if (recetteAffichees.includes(index)) {
 
             const recetteDiv = document.createElement("li");
-            recetteDiv.classList.add("flex", "flex-row", "items-center", "space-x-5");
+            recetteDiv.classList.add("flex", "flex-col", "md:max-2xl:flex-row", "md:max-2xl:items-center", "justifty-between", "space-y-4", );
+
+            const textdiv = document.createElement("div");
+            textdiv.classList.add("flex", "flex-row", "items-center", "space-x-5", "bordere");
+            recetteDiv.appendChild(textdiv);
+
+
+            const puce = document.createElement("h2");
+            puce.textContent = "•";
+            textdiv.appendChild(puce);
+            puce.classList.add("font-h1", "font-black", "text-4xl", "md:max-2xl:text-6xl");
 
             const nomRecette = document.createElement("h2");
             nomRecette.textContent = recette.nom;
-            recetteDiv.appendChild(nomRecette);
+            textdiv.appendChild(nomRecette);
             nomRecette.classList.add("font-h1", "font-black", "text-4xl", "md:max-2xl:text-6xl");
+
+          
+
 
             const imageEtoile = document.createElement("img");
             imageEtoile.src = favoris.includes(index.toString()) ? "../assets/image/star.fill.png" : "../assets/image/star.empty.png";        
-            imageEtoile.width = 30;
-            imageEtoile.height = 30;
 
             recetteDiv.appendChild(imageEtoile);
+            imageEtoile.classList.add("cursor-pointer", "w-8", "md:max-2xl:w-12", "ml-auto", "mr-" );
             recetteDiv.setAttribute("id", index);
             imageEtoile.addEventListener("click", function() 
             {
@@ -59,9 +71,9 @@ async function afficherRecetteFavoris(recetteAffichees) {
         console.log('ok')
 
 //if (favoris.includes(index)) {
-
             const recetteDiv = document.createElement("li");
             recetteDiv.classList.add("flex", "flex-row", "items-center", "space-x-5");
+
 
             const nomRecette = document.createElement("h2");
             nomRecette.textContent = recette.nom;
