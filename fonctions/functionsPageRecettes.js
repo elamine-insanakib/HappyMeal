@@ -57,13 +57,11 @@ async function afficherRecette(recetteAffichees) {
                 ajouterFavoris(this);
             });
 
-
-            //      <section class="px-8 md:max-2xl:px-20 mt-9">
             const etapeSection = document.createElement("section");
             etapeSection.classList.add("px-8", "md:max-2xl:px-20", "mt-9", "hidden")
 
             const titreEtape = document.createElement("h2");
-            titreEtape.textContent = "Ingredients :";
+            titreEtape.textContent = "Etapes :";
             etapeSection.appendChild(titreEtape);
             etapeSection.classList.add("font-h1", "font-extrabold", "font-lg", "md:max-2xl:text-6xl");
 
@@ -76,61 +74,55 @@ async function afficherRecette(recetteAffichees) {
                 liEtape.textContent = etape;
                 ulEtape.appendChild(liEtape);
                 liEtape.classList.add("flex", "flex-row", "space-x-5", "font-lg", "md:max-2xl:text-4xl");
-
-
             });
+
+            const ingredientSection = document.createElement("section");
+            ingredientSection.classList.add("px-8", "md:max-2xl:px-20", "mt-9", "hidden");
+
+            const titreIngredient = document.createElement("h2");
+            titreIngredient.textContent = "Ingrédients :";
+            ingredientSection.appendChild(titreIngredient);
+            ingredientSection.classList.add("font-h1", "font-extrabold", "font-lg", "md:max-2xl:text-6xl");
+
+            const ulIngredient = document.createElement("ul");
+            ingredientSection.appendChild(ulIngredient);
+            ulIngredient.classList.add("space-y-4", "md:max-2xl:space-y-16", "mt-8");
+
+            recette.ingredients.forEach((ingredient) => {
+                const liIngredient = document.createElement("li");
+                liIngredient.textContent = ingredient.nom + " " +ingredient.quantite;
+                ulIngredient.appendChild(liIngredient);
+                liIngredient.classList.add("flex", "flex-row", "space-x-5", "font-lg", "md:max-2xl:text-4xl");
+            });
+
 
             recetteDiv.addEventListener("click", function() {
                 if (etapeSection.classList.contains("hidden")) {
                     etapeSection.classList.remove("hidden");
+                    ingredientSection.classList.remove("hidden");
                     containerEtapes.classList.remove("hidden");
-                } else {
-                    etapeSection.classList.add("hidden");
-                    containerEtapes.classList.add("hidden");
-
                 }
             });
-
+            
+            etapeSection.addEventListener("click", function(){
+                etapeSection.classList.add("hidden");
+                ingredientSection.classList.add("hidden");
+            });
+            
+            //Ajouter chaques recettes sur le container lu
             document.getElementById("recettesContainerLu").appendChild(recetteDiv);
+            // Ajouter la section des ingrédients au conteneur containerEtapes après la section des étapes
+            document.getElementById("containerEtapes").appendChild(ingredientSection);
+            // Ajouter la section des étapes au conteneur containerEtapes
             document.getElementById("containerEtapes").appendChild(etapeSection);
+
+            
 
             
 
         });
 }
 
-async function afficherRecetteFavoris(recetteAffichees) {
-
-    const recettes = await recupererDonneesJSON();
-
-    recettes.forEach((recette, index) => {
-        console.log('ok')
-
-//if (favoris.includes(index)) {
-
-            const recetteDiv = document.createElement("li");
-            recetteDiv.classList.add("flex", "flex-row", "items-center", "space-x-5");
-
-            const nomRecette = document.createElement("h2");
-            nomRecette.textContent = recette.nom;
-            recetteDiv.appendChild(nomRecette);
-            nomRecette.classList.add("font-h1", "font-black", "text-4xl", "md:max-2xl:text-6xl");
-
-            const imageEtoile = document.createElement("img");
-            imageEtoile.src = favoris.includes(index.toString()) ? "../assets/image/star.fill.png" : "../assets/image/star.empty.png";        
-            imageEtoile.width = 30;
-            imageEtoile.height = 30;
-
-            recetteDiv.appendChild(imageEtoile);
-            recetteDiv.setAttribute("id", index);
-            imageEtoile.addEventListener("click", function() 
-            {
-                ajouterFavoris(this);
-            });
-            document.getElementById("recettesContainerLuFavoris").appendChild(recetteDiv);
-//        }
-    });
-}
 
 
 async function genererNombreAleatoire() {
