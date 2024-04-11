@@ -44,7 +44,46 @@ async function afficherRecette(recetteAffichees) {
             {
                 ajouterFavoris(this);
             });
+
+
+            //      <section class="px-8 md:max-2xl:px-20 mt-9">
+            const etapeSection = document.createElement("section");
+            etapeSection.classList.add("px-8", "md:max-2xl:px-20", "mt-9", "hidden")
+
+            const titreEtape = document.createElement("h2");
+            titreEtape.textContent = "Ingredients :";
+            etapeSection.appendChild(titreEtape);
+            etapeSection.classList.add("font-h1", "font-extrabold", "font-lg", "md:max-2xl:text-6xl");
+
+            const ulEtape = document.createElement("ul");
+            etapeSection.appendChild(ulEtape);
+            ulEtape.classList.add("space-y-4", "md:max-2xl:space-y-16", "mt-8");
+
+            recette.etapes.forEach((etape) => {
+                const liEtape = document.createElement("li");
+                liEtape.textContent = etape;
+                ulEtape.appendChild(liEtape);
+                liEtape.classList.add("flex", "flex-row", "space-x-5", "font-lg", "md:max-2xl:text-4xl");
+
+
+            });
+
+            recetteDiv.addEventListener("click", function() {
+                if (etapeSection.classList.contains("hidden")) {
+                    etapeSection.classList.remove("hidden");
+                    containerEtapes.classList.remove("hidden");
+                } else {
+                    etapeSection.classList.add("hidden");
+                    containerEtapes.classList.add("hidden");
+
+                }
+            });
+
             document.getElementById("recettesContainerLu").appendChild(recetteDiv);
+            document.getElementById("containerEtapes").appendChild(etapeSection);
+
+            
+
         });
 }
 

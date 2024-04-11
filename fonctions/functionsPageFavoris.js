@@ -45,7 +45,7 @@ async function afficherRecette() {
             ajouterFavoris(this);
         });
         document.getElementById("recettesContainerLu").appendChild(recetteDiv);
-    });
+     });
 }
 
 
