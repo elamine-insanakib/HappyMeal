@@ -1,10 +1,10 @@
 const inputIngredient = document.getElementById('ingredient');
 let favoris = [];
 chargerFavoris();
+let listeIngredients = [];
 
 async function init() {
-    const recetteAffichees = await genererNombreAleatoire(); // Attendre que la promesse soit résolue
-    afficherRecette(recetteAffichees); // Passer les nombres aléatoires à la fonction afficherRecette
+    afficherRecette(); // Passer les nombres aléatoires à la fonction afficherRecette
 }
 
 init();
@@ -19,7 +19,14 @@ async function recupererDonneesJSON() {
     }
 }
 
-async function afficherRecette(recetteAffichees) {
+// Définir la fonction genererNombreAleatoire en dehors de la fonction afficherRecette
+function genererNombreAleatoire(taille) {
+    // Générer un nombre aléatoire entre 0 (inclus) et la taille (exclus)
+    return Math.floor(Math.random() * taille);
+}
+
+
+async function afficherRecette() {
 
     const recettes = await recupererDonneesJSON();
 
@@ -42,9 +49,6 @@ async function afficherRecette(recetteAffichees) {
       nomRecette.textContent = recette.nom;
       textdiv.appendChild(nomRecette);
       nomRecette.classList.add("font-h1", "font-black", "text-4xl", "md:max-2xl:text-6xl");
-
-    
-
 
       const imageEtoile = document.createElement("img");
       imageEtoile.src = favoris.includes(index.toString()) ? "../assets/image/star.fill.png" : "../assets/image/star.empty.png";        
@@ -93,6 +97,15 @@ async function afficherRecette(recetteAffichees) {
                 liIngredient.textContent = ingredient.nom + " " +ingredient.quantite;
                 ulIngredient.appendChild(liIngredient);
                 liIngredient.classList.add("flex", "flex-row", "space-x-5", "font-lg", "md:max-2xl:text-4xl");
+
+                const buttonAdd = document.createElement("button");
+                buttonAdd.textContent = "add"
+                ulIngredient.appendChild(buttonAdd)
+
+                buttonAdd.addEventListener("click", function()  
+                {
+                    ajouterIngredient(ingredient.nom);
+                });
             });
 
 
@@ -108,10 +121,15 @@ async function afficherRecette(recetteAffichees) {
                 etapeSection.classList.add("hidden");
                 ingredientSection.classList.add("hidden");
             });
+
+            ingredientSection.addEventListener("click", function(){
+                etapeSection.classList.add("hidden");
+                ingredientSection.classList.add("hidden");
+            });
             
             //Ajouter chaques recettes sur le container lu
             document.getElementById("recettesContainerLu").appendChild(recetteDiv);
-            // Ajouter la section des ingrédients au conteneur containerEtapes après la section des étapes
+                        // Ajouter la section des ingrédients au conteneur containerEtapes après la section des étapes
             document.getElementById("containerEtapes").appendChild(ingredientSection);
             // Ajouter la section des étapes au conteneur containerEtapes
             document.getElementById("containerEtapes").appendChild(etapeSection);
@@ -121,31 +139,12 @@ async function afficherRecette(recetteAffichees) {
             
 
         });
+
+    const nombreAleatoire = genererNombreAleatoire(recettes.length);
+    const recetteAleatoire = recettes[nombreAleatoire];
+
+    document.getElementById("recipe").textContent = recetteAleatoire.nom
 }
-
-
-
-async function genererNombreAleatoire() {
-    const nombresAleatoires = [];
-    const recettes = await recupererDonneesJSON();
-    
-    // Fonction pour vérifier si un nombre est déjà dans le tableau
-    function estDejaPresent(nombre) {
-        return nombresAleatoires.includes(nombre);
-    }
-
-    // Générer 9 nombres uniques aléatoires
-    while (nombresAleatoires.length < 9) {
-        let number = Math.floor(Math.random() * recettes.length);
-        if (!estDejaPresent(number)) {
-            nombresAleatoires.push(number);
-        }
-    }
-
-    return nombresAleatoires;
-}
-
-genererNombreAleatoire()
 
 inputIngredient.addEventListener('input', () => {
     // Récupération de la valeur saisie dans le champ de texte
@@ -182,6 +181,24 @@ function chargerFavoris() {
     }
 }
 
+function chargerListeIngredients () {
+    const listeIngredientsString = localStorage.getItem('listeIngredients');
+
+    if (listeIngredientsString) {
+        listeIngredients = JSON.parse(listeIngredientsString);
+    }
+
+}
+
+function ajouterIngredient(ingredient) {
+    if (!listeIngredients.includes(ingredient)){
+        listeIngredients.push(ingredient);
+    };
+    console.log(listeIngredients);
+    localStorage.setItem('listeIngredients', JSON.stringify(listeIngredients));
+
+}
+
 function ajouterFavoris(imageEtoile) {
 
     // Récupérer l'élément div parent de l'image étoile, qui contient les informations de la recette
@@ -207,4 +224,9 @@ function ajouterFavoris(imageEtoile) {
 
     // Appel de la fonction pour sauvegarder les favoris dans le localStorage
     sauvegarderFavoris();
+
 }
+
+chargerListeIngredients()
+
+console.log(listeIngredients)
