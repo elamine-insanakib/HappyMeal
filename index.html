@@ -23,37 +23,47 @@
     </script>
 </head>
 <body>
-<<<<<<< HEAD
+
+  <!-- //TODO: Afficher les favoris dans les la liste de favoris.html -->
+
   <header class="bg-white h-16 md:max-2xl:h-20 w-full flex flex-row justify-between items-center sticky top-0 z-20">
-    <section class="w-16 h-16 flex justify-center items-center md:max-2xl:hidden">
-      <img src="../assets/image/recipe.svg" alt="recipe" class="w-7 h-7">
+    <section class="w-16 h-16 flex justify-center items-center md:max-2xl:hidden bg-gray-200">
+      <a href="index.html" >
+        <img src="../assets/image/home.svg" alt="recipe" class="w-7 h-7">
+      </a>
     </section>
     <section class="w-16 h-16 flex justify-center items-center md:max-2xl:hidden">
-      <img src="../assets/image/cart.svg" alt="recipe" class="w-7 h-7">
+      <a href="recettes.html">
+        <img src="../assets/image/recipe.svg" alt="recipe" class="w-7 h-7">
+      </a>
     </section>
-    <section class=" hidden md:max-2xl:flex flex-row items-center space-x-8 px-8">
-      <h1 class="font-h1 text-4xl font-black cursor-pointer hover:underline transition-all duration-300 active:opacity-10">Recettes</h1>
-      <h1 class="font-h1 text-4xl font-black cursor-pointer hover:underline transition-all duration-300 active:opacity-10">Favoris</h1>
-      <h1 class="font-h1 text-4xl font-black cursor-pointer hover:underline transition-all duration-300 active:opacity-10">Panier</h1>
+    <section class="w-16 h-16 flex justify-center items-center md:max-2xl:hidden">
+      <a href="favoris.html">
+        <img src="../assets/image/star.empty.png" alt="recipe" class="w-7 h-7">
+      </a>
+    </section>
+    <section class="w-16 h-16 flex justify-center items-center md:max-2xl:hidden">
+      <a href="panier.html">
+        <img src="../assets/image/cart.svg" alt="recipe" class="w-7 h-7">
+      </a>
+    </section>
+    <section class=" hidden md:max-2xl:flex flex-row items-center space-x-8 px-8 ">
+      <a href="index.html" class="bg-gray-200">
+        <h1 class="font-h1 text-4xl font-black cursor-pointer hover:underline transition-all duration-300 active:opacity-10">Accueil</h1>
+      </a>
+      <a href="recettes.html">
+        <h1 class="font-h1 text-4xl font-black cursor-pointer hover:underline transition-all duration-300 active:opacity-10">Recettes</h1>
+      </a>
+      <a href="favoris.html">
+        <h1 class="font-h1 text-4xl font-black cursor-pointer hover:underline transition-all duration-300 active:opacity-10">Favoris</h1>
+      </a>
+      <a href="panier.html">
+        <h1 class="font-h1 text-4xl font-black cursor-pointer hover:underline transition-all duration-300 active:opacity-10">Panier</h1>
+      </a>
     </section>
 </header>
       <main class="space-y-9 md:max-2xl:space-y-20 px-4">
-=======
-    <header class="bg-white h-16 md:max-2xl:h-20 w-full flex flex-row justify-between items-center sticky top-0 z-20">
-        <section class="w-16 h-16 flex justify-center items-center md:max-2xl:hidden">
-          <img src="../assets/image/recipe.svg" alt="recipe" class="w-7 h-7">
-        </section>
-        <section class="w-16 h-16 flex justify-center items-center md:max-2xl:hidden">
-          <img src="../assets/image/cart.svg" alt="recipe" class="w-7 h-7">
-        </section>
-        <section class=" hidden md:max-2xl:flex flex-row items-center space-x-8 px-8">
-          <h1 class="font-h1 text-4xl font-black">Recettes</h1>
-          <h1 class="font-h1 text-4xl font-black">Favoris</h1>
-          <h1 class="font-h1 text-4xl font-black">Panier</h1>
-        </section>
-    </header>
 
->>>>>>> cba9f5fbf802ed3b9ce279e7846122d92c54b8c7
         <section id="recipe-day" class="px-8 space-y-9 md:max-2xl:space-y-20 mt-9 md:max-2xl: mt-20">
           <h1 class="font-h1 text-4xl	md:max-2xl:text-6xl text-center md:max-2xl:text-left font-black">La recette du jour :</h1>
           <div class=" flex flex-row justify-center md:max-2xl:justify-start md:max-2xl:space-x-5 ml-4">
