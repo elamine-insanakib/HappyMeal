@@ -109,7 +109,7 @@ async function afficherRecette() {
             });
 
 
-            recetteDiv.addEventListener("click", function() {
+            textdiv.addEventListener("click", function() {
                 if (etapeSection.classList.contains("hidden")) {
                     etapeSection.classList.remove("hidden");
                     ingredientSection.classList.remove("hidden");

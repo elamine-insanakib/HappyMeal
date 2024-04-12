@@ -1,27 +1,32 @@
+let listeIngredient = [];
 
-let listeIngredients = [];
+// Retrieve from local storage
+const storedIngredients = localStorage.getItem('listeIngredients');
 
-function chargerListeIngredients () {
-    const listeIngredientsString = localStorage.getItem('listeIngredients');
-
-    if (listeIngredientsString) {
-        listeIngredients = JSON.parse(listeIngredientsString);
-    }
-
-    return listeIngredients;
-
+// Check if there are stored ingredients
+if (storedIngredients) {
+    // Parse the stored string into an array
+    listeIngredient = JSON.parse(storedIngredients);
 }
 
-chargerListeIngredients()
-
-
- listeIngredients.forEach(ingredient => {
-
-const divIngredient = document.getElementById("panierContainer")
-
-    liIngredient = document.createElement("li");
-    liIngredient.classList.add("flex", "font-lg", "text-4xl");
+listeIngredient.forEach(ingredient => {
+    console.log(ingredient);
+    liIngredient = document.createElement('li');
     liIngredient.textContent = ingredient;
-    divIngredient.appendChild(liIngredient);
-    
- });
+
+    ulContainer = document.getElementById('ulPanierContainer')
+    ulContainer.appendChild(liIngredient);
+
+    liIngredient.addEventListener("click", () => removeItem(ingredient));
+  
+});
+
+function removeItem(ingredientToRemove) {
+    const index = listeIngredient.indexOf(ingredientToRemove);
+    if (index !== -1) {
+        listeIngredient.splice(index, 1);
+        // Update the local storage
+        localStorage.setItem('listeIngredients', JSON.stringify(listeIngredient));
+        // Remove the list item from the DOM
+    }
+}
