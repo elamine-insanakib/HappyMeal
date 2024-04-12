@@ -40,7 +40,7 @@ function afficherIngredient () {
     
             removeButton = document.createElement('button');
             removeButton.textContent = "X";
-            removeButton.classList.add("bg-red-500", "hover:bg-blue-700", "text-white", "font-bold", "py-0", "px-6", "rounded", "m-2");
+            removeButton.classList.add("bg-red-500", "hover:bg-red-700", "text-white", "font-bold", "py-0", "px-6", "rounded", "m-2", "focus:m-3");
             //class="      rounded">
     
     
@@ -81,3 +81,5 @@ function removeItem(ingredientToRemove) {
     }
     window.location.reload();
 }
+
+
