@@ -93,19 +93,32 @@ async function afficherRecette() {
             ulIngredient.classList.add("space-y-4", "md:max-2xl:space-y-16", "mt-8");
 
             recette.ingredients.forEach((ingredient) => {
+
                 const liIngredient = document.createElement("li");
-                liIngredient.textContent = ingredient.nom + " " +ingredient.quantite;
+                const divIngredient = document.createElement("div");
+
+                liIngredient.textContent = ingredient.nom + " " + ingredient.quantite;
+
                 ulIngredient.appendChild(liIngredient);
+                liIngredient.appendChild(divIngredient);
+
                 liIngredient.classList.add("flex", "flex-row", "space-x-5", "font-lg", "md:max-2xl:text-4xl");
+                divIngredient.classList.add("flex", "ml-auto");
 
                 const buttonAdd = document.createElement("button");
-                buttonAdd.textContent = "add"
-                ulIngredient.appendChild(buttonAdd)
+                buttonAdd.textContent = "add";
+
+                ulIngredient.appendChild(divIngredient);
+                divIngredient.appendChild(buttonAdd);
+                divIngredient.appendChild(liIngredient);
 
                 buttonAdd.addEventListener("click", function()  
                 {
                     ajouterIngredient(ingredient.nom);
                 });
+
+                divIngredient.appendChild(buttonAdd);
+
             });
 
 
