@@ -103,7 +103,7 @@ async function afficherRecette() {
                 liIngredient.appendChild(divIngredient);
 
                 liIngredient.classList.add("flex", "flex-row", "space-x-5", "font-lg", "md:max-2xl:text-4xl");
-                divIngredient.classList.add("flex", "ml-auto");
+                divIngredient.classList.add("ml-auto", "mr-auto", "ms-5");
 
                 const buttonAdd = document.createElement("button");
                 buttonAdd.textContent = "add";
