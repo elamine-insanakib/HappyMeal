@@ -63,9 +63,9 @@
     <main class="flex flex-col items-center w-full">
 
       <section class="flex flex-row space-x-5 md:max-2xl:space-x-20 mb-2 ">
-        <img src="../assets/image/left-arrow.svg" alt="empty" class="w-6 h-6 md:max-2xl:w-16 md:max-2xl:h-16">
-        <h2 class="font-h1 font-extrabold font-black text-base md:max-2xl:text-6xl text-center " >Lundi</h2>
-        <img src="../assets/image/right-arrow.svg" alt="empty" class="w-6 h-6 md:max-2xl:w-16 md:max-2xl:h-16">
+        <img id="l-button" src="../assets/image/left-arrow.svg" alt="empty" class="w-6 h-6 md:max-2xl:w-16 md:max-2xl:h-16">
+        <h2 id="day" class="font-h1 font-extrabold font-black text-base md:max-2xl:text-6xl text-center"></h2>
+        <img id="r-button" src="../assets/image/right-arrow.svg" alt="empty" class="w-6 h-6 md:max-2xl:w-16 md:max-2xl:h-16">
       </section>
       <section class="w-full">
 
@@ -74,13 +74,11 @@
         </section>
 
 
-        <section class="flex justify-center  mt-8 w-56 md:max-2xl:w-9/12 mt-8 mx-auto ">
-          <input type="text" list="options" placeholder="choisissez une de vos recettes favoris" class="w-full h-8 border-2 border-black text-xs md:max-2xl:text-lg text-center">
-          <datalist id="options" class="bg-red-500">
-            <option class="bg-red-500" value="Option 1">
-            <option value="Option 2">
-            <option value="choisissez une de vos recettes favoris choisissez une de vos recettes favoris" >
-          </datalist>
+        <section class="flex flex-row space-x-2 md:max-2xl:space-x-8 mt-8 w-56 md:max-2xl:w-9/12 mt-8 mx-auto ">
+          <select id="day-select" class="w-full h-8 border-2 border-black text-xs md:max-2xl:text-lg text-center">
+            <option id="day-holder" disabled selected>choisissez une de vos recettes favoris</option>
+          </select>
+          <img id="day-remove" src="assets/image/trash.svg" class="h-8 w-auto hidden"/>
         </section>
 
         <div class="w-64 md:max-2xl:w-10/12 h-1 bg-black mx-auto mt-40 md:max-2xl:mt-72 mb-4"></div>
@@ -89,13 +87,11 @@
           <h3>soir</h3>
         </section>
 
-        <section class="flex justify-center w-56 md:max-2xl:w-9/12 mt-8 mx-auto">
-          <input type="text" list="options" placeholder="choisissez une de vos recettes favoris" class="w-full h-8 border-2 border-black text-xs md:max-2xl:text-lg text-center">
-          <datalist id="options" class="bg-red-500">
-            <option class="bg-red-500" value="Option 1">
-            <option value="Option 2">
-            <option value="choisissez une de vos recettes favoris choisissez une de vos recettes favoris" >
-          </datalist>
+        <section class="flex flex-row space-x-2 md:max-2xl:space-x-8 mt-8 w-56 md:max-2xl:w-9/12 mt-8 mx-auto ">
+          <select id="night-select" class="w-full h-8 border-2 border-black text-xs md:max-2xl:text-lg text-center">
+            <option id="night-holder" disabled selected value="">choisissez une de vos recettes favoris</option>
+          </select>
+          <img id="night-remove" src="assets/image/trash.svg" class="h-8 w-auto hidden"/>
         </section>
                 
       </section>

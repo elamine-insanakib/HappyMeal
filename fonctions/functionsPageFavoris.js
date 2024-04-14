@@ -1,135 +1,201 @@
-const inputIngredient = document.getElementById('ingredient');
-let favoris = [];
-chargerFavoris();
-
-async function init() {
-    const recetteAffichees = await genererNombreAleatoire(); // Attendre que la promesse soit résolue
-    afficherRecette(recetteAffichees); // Passer les nombres aléatoires à la fonction afficherRecette
-}
-
-init();
-
-async function recupererDonneesJSON() {
-    try {
-        const response = await fetch("../data.json");
-        const data = await response.json();
-        return data.recettes; // Renvoie uniquement les recettes du fichier JSON
-    } catch (error) {
-        console.error('Erreur lors de la récupération des données JSON :', error);
+var agenda = 
+  {
+    lundi: {
+      midi: "",
+      soir: ""
+    },
+    mardi: {
+      midi: "",
+      soir: ""
+    },
+    mercredi: {
+      midi: "",
+      soir: ""
+    },
+    jeudi: {
+      midi: "",
+      soir: ""
+    },
+    vendredi: {
+      midi: "",
+      soir: ""
+    },
+    samedi: {
+      midi: "",
+      soir: ""
+    },
+    dimanche: {
+      midi: "",
+      soir: ""
     }
-}
+  }
 
-async function afficherRecette() {
-    const recettes = await recupererDonneesJSON();
+const json = fetch('data.json')
+  .then(response => response.json())
+  .then(data => {
+      return data;
+  })
+  .catch(error => console.error('Erreur:', error));
 
-    favoris.forEach(index => {
-        const recette = recettes[index];
 
-        const recetteDiv = document.createElement("li");
-        recetteDiv.classList.add("flex", "flex-row", "items-center", "space-x-5");
+const favoris = JSON.parse(localStorage.getItem('favoris')) || [];
 
-        const nomRecette = document.createElement("h2");
-        nomRecette.textContent = recette.nom;
-        recetteDiv.appendChild(nomRecette);
-        nomRecette.classList.add("font-h1", "font-black", "text-4xl", "md:max-2xl:text-6xl");
-
-        const imageEtoile = document.createElement("img");
-        imageEtoile.src = "../assets/image/star.fill.png";        
-        imageEtoile.width = 30;
-        imageEtoile.height = 30;
-
-        recetteDiv.appendChild(imageEtoile);
-        recetteDiv.setAttribute("id", index);
-        imageEtoile.addEventListener("click", function() 
-        {
-            ajouterFavoris(this);
-        });
-        document.getElementById("recettesContainerLu").appendChild(recetteDiv);
-     });
+if (localStorage.getItem('agenda')) {
+  agenda = JSON.parse(localStorage.getItem('agenda'));
 }
 
 
+const days = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
 
-async function genererNombreAleatoire() {
-    const nombresAleatoires = [];
-    const recettes = await recupererDonneesJSON();
-    
-    // Fonction pour vérifier si un nombre est déjà dans le tableau
-    function estDejaPresent(nombre) {
-        return nombresAleatoires.includes(nombre);
-    }
-
-    // Générer 9 nombres uniques aléatoires
-    while (nombresAleatoires.length < 9) {
-        let number = Math.floor(Math.random() * recettes.length);
-        if (!estDejaPresent(number)) {
-            nombresAleatoires.push(number);
-        }
-    }
-
-    return nombresAleatoires;
+function getDayAndIndex(date) {
+    const dayIndex = date.getDay();
+    const dayName = days[dayIndex];
+    return { dayName, dayIndex };
 }
 
-genererNombreAleatoire()
+function setTodayDay() {
+    const today = new Date();
+    const { dayName } = getDayAndIndex(today);
+    document.getElementById('day').textContent = dayName;
+}
 
-inputIngredient.addEventListener('input', () => {
-    // Récupération de la valeur saisie dans le champ de texte
-    const nomIngredientRecherche = inputIngredient.value;
-    // Appel de la fonction filtreRecette avec le nouvel ingrédient recherché
-    filtreRecette(nomIngredientRecherche);
+function getDayCurrentDay() {
+  return current_day = document.getElementById('day').textContent;
+}
+
+function leftButton () {
+  const current_day = getDayCurrentDay();
+  const index = days.indexOf(current_day);
+  const previous_day = days[index - 1];
+  document.getElementById('day').textContent = previous_day;
+  if (index === 0) {
+    document.getElementById('day').textContent = days[6];
+  }
+}
+
+function rightButton() {
+  const current_day = getDayCurrentDay();
+  const index = days.indexOf(current_day);
+  const next_day = days[index + 1];
+  document.getElementById('day').textContent = next_day;
+  if (index === 6) {
+    document.getElementById('day').textContent = days[0];
+  }
+}
+
+function deleteOption() {
+  const options = document.getElementsByClassName('opt');
+  while (options.length > 0) {
+    options[0].remove();
+  }
+  const day_select = document.getElementById('day-select');
+  const night_select = document.getElementById('night-select');
+  day_select.selectedIndex = 0;
+  night_select.selectedIndex = 0;
+
+  const day_remove = document.getElementById('day-remove');
+  const night_remove = document.getElementById('night-remove');
+  day_remove.classList.add('hidden');
+  night_remove.classList.add('hidden');
+}
+
+async function getOption() {
+  const data = await json;
+  favoris.forEach(favori => {
+    const day_option = document.createElement('option');
+    const night_option = document.createElement('option');
+    day_option.setAttribute('class', 'opt');
+    night_option.setAttribute('class', 'opt');
+    var name = data.recettes[favori].nom;
+    day_option.textContent = name;
+    night_option.textContent = name;
+    day_option.value = favori;
+    night_option.value = favori;
+    document.getElementById('day-select').appendChild(day_option);
+    document.getElementById('night-select').appendChild(night_option);
+  });
+}
+
+function saveAgenda(schedule, value) {
+  const current_day = getDayCurrentDay();
+  agenda[current_day][schedule] = value
+  localStorage.setItem('agenda', JSON.stringify(agenda));
+}
+
+async function displayAgenda() {
+  const data = await json
+  const current_day = getDayCurrentDay();
+  console.log('current_day', current_day);
+  const midi = agenda[current_day].midi;
+  const soir = agenda[current_day].soir;
+  // je veux que l'option avec la valeur midi soit selectionnée
+  const day_select = document.getElementById('day-select');
+  const night_select = document.getElementById('night-select');
+  day_select.value = midi;
+  night_select.value = soir;
+  const day_remove = document.getElementById('day-remove');
+  const night_remove = document.getElementById('night-remove');
+  if (midi) {
+    day_remove.classList.remove('hidden');
+  }
+  if (soir) {
+    night_remove.classList.remove('hidden');
+  }
+  if (!midi) {
+    day_select.selectedIndex = 0;
+  }
+  if (!soir) {
+    night_select.selectedIndex = 0;
+  }
+}
+
+
+
+document.getElementById('l-button').addEventListener('click', () => {
+  deleteOption();
+  leftButton();
+  getOption();
+  displayAgenda();
 });
 
-async function filtreRecette(nomIngredientRecherche) {
-    const recettes = await recupererDonneesJSON();
+document.getElementById('r-button').addEventListener('click', () => {
+  deleteOption();
+  rightButton();
+  getOption();
+  displayAgenda();
+});
 
-    recettes.forEach((recette, index) => {
-        let displayStyle = "none"; // Par défaut, on cache la recette
-        recette.ingredients.forEach(ingredient => {
-            if (ingredient.nom && ingredient.nom.toLowerCase().includes(nomIngredientRecherche.toLowerCase())) {
-                displayStyle = "block"; // Si l'ingrédient est trouvé et a un nom, on affiche la recette
-            }
-        });
-        // Modifier le style de l'élément avec l'ID correspondant
-        document.getElementById(index).style.display = displayStyle;
-    });
-}
+document.getElementById('day-select').addEventListener('change', (event) => {
+  saveAgenda('midi', event.target.value)
+  displayAgenda();
+});
+
+document.getElementById('night-select').addEventListener('change', (event) => {
+  saveAgenda('soir', event.target.value)
+  displayAgenda();
+});
+
+document.getElementById('day-remove').addEventListener('click', () => {
+  saveAgenda('midi', '');
+  deleteOption();
+  getOption();
+  displayAgenda();
+});
+
+document.getElementById('night-remove').addEventListener('click', () => {
+  saveAgenda('soir', '');
+  deleteOption();
+  getOption();
+  displayAgenda();
+});
+
+setTodayDay();
+getOption();
+displayAgenda();
 
 
-//Fonctions de favoris
-function sauvegarderFavoris() {
-    localStorage.setItem('favoris', JSON.stringify(favoris));
-}
 
-function chargerFavoris() {
-    const favorisString = localStorage.getItem('favoris');
-    if (favorisString) {
-        favoris = JSON.parse(favorisString);
-    }
-}
 
-function ajouterFavoris(imageEtoile) {
 
-    // Récupérer l'élément div parent de l'image étoile, qui contient les informations de la recette
-    const recetteDiv = imageEtoile.parentNode;
-    const recetteIndex = recetteDiv.id;
 
-    // Vérifier si la recette est déjà dans les favoris
-    const indexDansFavoris = favoris.indexOf(recetteIndex);
-
-    // Si la recette n'est pas dans les favoris, l'ajouter
-    if (indexDansFavoris === -1) {
-        favoris.push(recetteIndex);
-        imageEtoile.src = "../assets/image/star.fill.png"; // changer l'image pour étoile remplie
-        imageEtoile.classList.add("favoris"); // ajouter la classe "favoris" à l'image
-        sauvegarderFavoris()
-    } else { // Si la recette est déjà dans les favoris, la retirer
-        favoris.splice(indexDansFavoris, 1);
-        imageEtoile.src = "../assets/image/star.empty.png"; // changer l'image pour étoile vide
-        imageEtoile.classList.remove("favoris"); // retirer la classe "favoris" de l'image
-        console.log("remove")
-        sauvegarderFavoris()
-    }
-
-    // Appel de la fonction pour sauvegarder les favoris dans le localStorage
-    sauvegarderFavoris();
-}
+  
