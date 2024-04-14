@@ -93,35 +93,27 @@ async function afficherRecette() {
             ulIngredient.classList.add("space-y-4", "md:max-2xl:space-y-16", "mt-8");
 
             recette.ingredients.forEach((ingredient) => {
-
                 const liIngredient = document.createElement("li");
                 const divIngredient = document.createElement("div");
-
+              
                 liIngredient.textContent = ingredient.nom + " " + ingredient.quantite;
-
-                ulIngredient.appendChild(liIngredient);
-                liIngredient.appendChild(divIngredient);
-
-                liIngredient.classList.add("flex", "flex-row", "space-x-5", "font-lg", "md:max-2xl:text-4xl");
-                divIngredient.classList.add("ml-auto", "mr-auto", "ms-5");
-
+              
+                liIngredient.classList.add("flex", "items-center", "justify-between", "space-x-5", "font-lg", "md:max-2xl:text-4xl");
+              
                 const buttonAdd = document.createElement("button");
                 buttonAdd.textContent = "add";
-
-                ulIngredient.appendChild(divIngredient);
+                buttonAdd.classList.add("bg-blue-500", "text-white", "py-2", "px-4", "rounded");
+              
+                ulIngredient.appendChild(liIngredient);
+                liIngredient.appendChild(divIngredient);
                 divIngredient.appendChild(buttonAdd);
-                divIngredient.appendChild(liIngredient);
-
+              
                 buttonAdd.addEventListener("click", function()  
                 {
                     ajouterIngredient(ingredient.nom);
                 });
-
-                divIngredient.appendChild(buttonAdd);
-
-            });
-
-
+              });              
+              
             textdiv.addEventListener("click", function() {
                 if (etapeSection.classList.contains("hidden")) {
                     etapeSection.classList.remove("hidden");
